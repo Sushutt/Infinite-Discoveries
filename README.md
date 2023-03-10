@@ -26,7 +26,7 @@ pip install wand (unsure if this is actually necessary)
 pip install colour
 
 Install the actual program:
-Find the main branch on github, and click the green <Code> button, then click "Download ZIP."
+Find the main branch on github, and click the green "Code" button, then click "Download ZIP."
 Put the ProcedualPlanets folder in your KSP GameData as you normally would.
 Open the .py file in the "GenerateSystem" folder via Visual Studio Code.
 Run the file in Visual Studio, I'm not really sure why it doesn't run outside it but that's how it works.
