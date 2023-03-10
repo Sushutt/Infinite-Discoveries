@@ -20,7 +20,7 @@ colors2 = list(yellow.range_to(Color("#f7f9fa"),25))
 white = Color("#f7f9fa")
 colors3 = list(white.range_to(Color("#0051ff"),65))
 finalColors = colors1 + colors2 + colors3
-filepath = os.path.dirname(os.path.realpath(__file__)).replace("\\","/")
+filepath = os.path.dirname(os.path.realpath(__file__)).replace("\\","/").replace("/GenerateSystem", "")
 totalStarsGenerated = 0
 totalPlanetsGenerated = 0
 totalMoonsGenerated = 0
@@ -1592,3 +1592,5 @@ if elapsedTime > 60:
     print("Time elapsed: " + str(round(elapsedTime/60,2)) + " minutes.")
 elif elapsedTime < 60:
     print("Time elapsed: " + str(round(elapsedTime,2)) + " seconds.")
+
+input("Type anything or press enter to close: ")
