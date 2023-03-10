@@ -285,7 +285,7 @@ def addToAtmoCfg(atmoCfg, starName, planetName, starColor, sctrClrR, sctrClrG, s
     "        shininess = 100\n"
     "        cloudColorMultiplier = 1.1\n"
     "        cloudScatteringMultiplier = 0.100000003\n"
-    "        cloudSkyIrradianceMultiplier = 10.2000000007\n"
+    "        cloudSkyIrradianceMultiplier = 2.2000000007\n"
     "        volumetricsColorMultiplier = 1\n"
     "        EVEIntegration_preserveCloudColors = False\n"
     "        adjustScaledTexture = False\n"
@@ -467,7 +467,7 @@ def writeStarCfg(starCfg, starName, starRadius, starMass, starDist, RGBfinal):
         "}\n"
     )
 
-def writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, parentN, atmo, atmoPress, templ, atmClrR, atmClrG, atmClrB, sctrClrR, sctrClrG, sctrClrB, terrainClr, moon, gasGiant, rings, ringInn, ringOut, ocean, oceanR, oceanG, oceanB, atmoHeight, finalTemp):
+def writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, parentN, atmo, atmoPress, templ, atmClrR, atmClrG, atmClrB, sctrClrR, sctrClrG, sctrClrB, terrainClr, moon, gasGiant, rings, ringInn, ringOut, ocean, oceanR, oceanG, oceanB, atmoHeight, finalTemp, oxygen):
     planetCfg.write(
         "@Kopernicus:AFTER[Kopernicus]\n"
         "{\n"
@@ -495,8 +495,20 @@ def writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, par
         planetCfg.write(
             "            tidallyLocked = false\n"
         )
+    if atmo == "Atmospheric":
+        if oxygen == True:
+            planetCfg.write(
+                "            description = " + str(planetName) + " is a randomly generated world roughly " + str(round(planetRadius / 600000, 2)) + " times the size of Kerbin! This world has an oxygenated atmosphere!\n"
+            )
+        else:
+            planetCfg.write(
+                "            description = " + str(planetName) + " is a randomly generated world roughly " + str(round(planetRadius / 600000, 2)) + " times the size of Kerbin! This world has an atmosphere with no oxygen.\n"
+            )
+    else:
+        planetCfg.write(
+            "            description = " + str(planetName) + " is a randomly generated world roughly " + str(round(planetRadius / 600000, 2)) + " times the size of Kerbin! This world has no atmosphere.\n"
+        )
     planetCfg.write(
-        "            description = " + str(planetName) + " is a randomly generated world roughly " + str(round(planetRadius / 600000, 2)) + " times the size of Kerbin!" + "\n"
         "            ScienceValues\n"
         "            {\n"
         "                landedDataValue = 100\n"
@@ -728,7 +740,16 @@ def writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, par
             "        Atmosphere\n"
             "        {\n"
             "            enabled = true\n"
-            "            oxygen = false\n"
+        )
+        if oxygen == True:
+            planetCfg.write(
+                "            oxygen = true\n"
+            )
+        else:
+            planetCfg.write(
+                "            oxygen = false\n"
+            )
+        planetCfg.write(
             "            ambientColor = RGBA(" + str(sctrClrR) + ", " + str(sctrClrG) + ", " + str(sctrClrB) + ", 100" + ")\n"
             "            altitude = " + str(atmoHeight) + "\n"
             "            pressureCurveIsNormalized = false\n"
@@ -1039,8 +1060,8 @@ def GeneratePlanetMaps(vacuum, terrainR, terrainG, terrainB, planetName, ocean, 
     print("Generating color map for " + planetName + "...")
 
     heightColor = ImageEnhance.Contrast(ImageEnhance.Brightness(finalHeight).enhance(0.5)).enhance(2)
-
-    colorMap = ImageOps.colorize(ImageOps.grayscale(heightColor), (25,25,25), (terrainR,terrainG,terrainB))
+    colorMapBlur = heightColor.filter(ImageFilter.GaussianBlur(1))
+    colorMap = ImageOps.colorize(ImageOps.grayscale(colorMapBlur), ((random.randint(0,32)),(random.randint(0,32)),(random.randint(0,32))), (terrainR,terrainG,terrainB))
 
     nrmContr = ImageEnhance.Contrast(finalImgNRM)
     nrmContred = nrmContr.enhance(1.1)
@@ -1213,16 +1234,34 @@ def generateMoon(parentPlanet, moonsGenerated, parentRadius, gasGiantP, atmoCfg,
     elif atmo == "Vacuum":
         templ = 0
     
+    starLum = Lum
+    starLumMult = starLum/1360
+    smaMult = 13599840256/planetSMA
+    finalTemp = round(287*starLumMult*smaMult)
     if atmo == "Atmospheric":
         if gasGiant == False:
             if random.randint(1,3) == 1:
-                ocean = True
+                if finalTemp > 200 and finalTemp < 600:
+                    ocean = True
+                else:
+                    ocean = False
             else:
                 ocean = False
         else:
             ocean = False
     else:
         ocean = False
+
+    if atmo == "Atmospheric":
+        if random.randint(1,4) == 1:
+            if finalTemp > 54 and finalTemp < 1000: 
+                oxygen = True
+            else:
+                oxygen = False
+        else:
+            oxygen = False
+    else:
+        oxygen = False
 
     oceanR = random.randint(50,100)
     oceanG = random.randint(50,100)
@@ -1260,13 +1299,6 @@ def generateMoon(parentPlanet, moonsGenerated, parentRadius, gasGiantP, atmoCfg,
 
     atmoHeight = random.randint(50,90)*1000
 
-    starLum = Lum
-    starLumMult = starLum/1360
-
-    smaMult = 13599840256/parentSMA
-
-    finalTemp = round(287*starLumMult*smaMult)
-
     if ocean == True:
         addToOceanCfg(oceanCfg, oceanR, oceanG, oceanB, planetName)
 
@@ -1278,7 +1310,7 @@ def generateMoon(parentPlanet, moonsGenerated, parentRadius, gasGiantP, atmoCfg,
                 cloudTexNum = random.randint(1,5)
                 addToEVECfg(eveCfg, cloudTexNum, planetName)
 
-    writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, parentPlanet, atmo, atmoPress, templ, atmClrR, atmClrG, atmClrB, sctrClrR, sctrClrG, sctrClrB, terrainClr, moon, gasGiant, rings, ringInn, ringOut, ocean, oceanR, oceanG, oceanB, atmoHeight, finalTemp)
+    writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, parentPlanet, atmo, atmoPress, templ, atmClrR, atmClrG, atmClrB, sctrClrR, sctrClrG, sctrClrB, terrainClr, moon, gasGiant, rings, ringInn, ringOut, ocean, oceanR, oceanG, oceanB, atmoHeight, finalTemp, oxygen)
 
 def generate(starN,starRadius,starColor,atmoCfg,listCfg,colorsRound,oceanCfg,eveCfg,Lum):
     print(planetsGenerated)
@@ -1321,18 +1353,36 @@ def generate(starN,starRadius,starColor,atmoCfg,listCfg,colorsRound,oceanCfg,eve
     else:
         atmo = "Vacuum"
         vacuum = True
-
+            
+    starLum = Lum
+    starLumMult = starLum/1360
+    smaMult = 13599840256/planetSMA
+    finalTemp = round(287*starLumMult*smaMult)
     if atmo == "Atmospheric":
         if gasGiant == False:
-            if random.randint(1,3) == 1:
-                ocean = True
+            if finalTemp > 100 and finalTemp < 600:
+                if random.randint(1,2) == 1:
+                    ocean = True
+                else:
+                    ocean = False
             else:
                 ocean = False
         else:
             ocean = False
     else:
         ocean = False
-            
+
+    if atmo == "Atmospheric":
+        if random.randint(1,3) == 1:
+            if finalTemp > 54 and finalTemp < 1000: 
+                oxygen = True
+            else:
+                oxygen = False
+        else:
+            oxygen = False
+    else:
+        oxygen = False
+
     oceanR = random.randint(50,100)
     oceanG = random.randint(50,100)
     oceanB = random.randint(50,100)
@@ -1370,6 +1420,8 @@ def generate(starN,starRadius,starColor,atmoCfg,listCfg,colorsRound,oceanCfg,eve
         print("Atmosphere scattering color: " + str(atmClrR) + " " + str(atmClrG) + " " + str(atmClrB))
         print("Atmosphere main color: " + str(sctrClrR) + " " + str(sctrClrG) + " " + str(sctrClrB))
         print("kPa at sea level: " + str(atmoPress))
+        if oxygen == True:
+            print("Oxygenated!")
     else:
         print("No atmosphere!")
 
@@ -1380,7 +1432,7 @@ def generate(starN,starRadius,starColor,atmoCfg,listCfg,colorsRound,oceanCfg,eve
     else:
         GeneratePlanetMaps(vacuum, terrainR, terrainG, terrainB, planetName, ocean, oceanR, oceanG, oceanB)
     
-    if random.randint(1,2) == 1:
+    if random.randint(1,3) == 1:
         print("RINGS!")
         print("-------------------------------")
         rings = True
@@ -1394,13 +1446,6 @@ def generate(starN,starRadius,starColor,atmoCfg,listCfg,colorsRound,oceanCfg,eve
 
     atmoHeight = random.randint(50,90)*1000
 
-    starLum = Lum
-    starLumMult = starLum/1360
-
-    smaMult = 13599840256/planetSMA
-
-    finalTemp = round(287*starLumMult*smaMult)
-
     if ocean == True:
         addToOceanCfg(oceanCfg, oceanR, oceanG, oceanB, planetName)
 
@@ -1412,7 +1457,7 @@ def generate(starN,starRadius,starColor,atmoCfg,listCfg,colorsRound,oceanCfg,eve
                 cloudTexNum = random.randint(1,5)
                 addToEVECfg(eveCfg, cloudTexNum, planetName)
 
-    writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, starN, atmo, atmoPress, templ, atmClrR, atmClrG, atmClrB, sctrClrR, sctrClrG, sctrClrB, terrainClr, moon, gasGiant, rings, ringInn, ringOut, ocean, oceanR, oceanG, oceanB, atmoHeight, finalTemp)
+    writeBodyCfg(planetCfg, planetName, planetRadius, planetMass, planetSMA, starN, atmo, atmoPress, templ, atmClrR, atmClrG, atmClrB, sctrClrR, sctrClrG, sctrClrB, terrainClr, moon, gasGiant, rings, ringInn, ringOut, ocean, oceanR, oceanG, oceanB, atmoHeight, finalTemp, oxygen)
     for a in range(moonAmount):
         moonsGenerated = moonsGenerated + 1
         generateMoon(planetName, moonsGenerated, planetRadius, gasGiant, atmoCfg, starN, starColor, listCfg, colorsRound, oceanCfg, eveCfg, Lum, planetSMA)
@@ -1426,8 +1471,8 @@ def generateStar(AmountOfPlanetsToGenerate):
     planetsNum = random.randint(0,AmountOfPlanetsToGenerate)
     print(starName)
     print("Number Of Planets For " + starName + ": " + str(planetsNum))
-    min = 26160000
-    max = 2616000000
+    min = 56160000
+    max = 1316000000
     starRadius = math.floor(abs(random.random() - random.random()) * (10 + max - min) + min)
     starRadius = starRadius
     starMass = starRadius * 6.7146251e+19
@@ -1505,7 +1550,7 @@ def testNum(Numer):
         
 print("Welcome! This generator requires you to input a few values in order to work.")
 print("---------------------------------------------------------------")
-print("Kerbal-Possibilities Version 0.9 (pre-alpha!)")
+print("Infinite-Discoveries Version 0.9 (alpha!)")
 print("---------------------------------------------------------------")
 print("WARNING: Generating a large amount of stars will take longer to... generate! The more stars you generate, the more it has to generate. Insightful, I know.")
 print("---------------------------------------------------------------")
@@ -1524,10 +1569,11 @@ print("---------------------------------------------------------------")
 AmountOfMoonsToGenerate = int(input("Maximum number of moons per planet: "))
 testNum(AmountOfMoonsToGenerate)
 print("---------------------------------------------------------------")
-estTime = (AmountOfPlanetsToGenerate * AmountOfMoonsToGenerate) * StarAmount
+estTime = ((AmountOfPlanetsToGenerate * AmountOfMoonsToGenerate) * StarAmount)*15
 print("The generator should take AT MOST " + str(round((estTime/60),2)) + " minutes.")
 print("---------------------------------------------------------------")
 input("Type anything or press enter to continue: ")
+startTime = time.time()
 for i in range(0,StarAmount):
     generateStar(AmountOfPlanetsToGenerate)
 print("All done!")
@@ -1539,3 +1585,10 @@ print("---------------------------------------------------------------")
 print("Total objects generated: " + str(totalStarsGenerated + totalPlanetsGenerated + totalMoonsGenerated))
 print("---------------------------------------------------------------")
 print("Now it's REALLY all done!")
+
+endTime = time.time()
+elapsedTime = endTime - startTime
+if elapsedTime > 60:
+    print("Time elapsed: " + str(round(elapsedTime/60,2)) + " minutes.")
+elif elapsedTime < 60:
+    print("Time elapsed: " + str(round(elapsedTime,2)) + " seconds.")

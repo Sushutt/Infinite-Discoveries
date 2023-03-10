@@ -114,14 +114,24 @@ def GeneratePlanetMaps():
 
     gray = ImageOps.grayscale(finalHeight)
 
+    #clrCnt1 = ImageEnhance.Contrast(ImageEnhance.Brightness(imOff1).enhance(1)).enhance(5)
+    #clrCnt2 = ImageEnhance.Contrast(ImageEnhance.Brightness(imOff2).enhance(1)).enhance(5)
+    #clrCnt3 = ImageEnhance.Contrast(ImageEnhance.Brightness(imOff3).enhance(1)).enhance(5)
+    #
+    #colorFinal = Image.new("RGBA", (4096,2048), (255,255,255))
+    #clrL1 = ImageOps.colorize(ImageOps.grayscale(clrCnt1), (128,128,128), (0,0,255)).convert("RGBA")
+    #clrL2 = ImageOps.colorize(ImageOps.grayscale(clrCnt2), (128,128,128), (0,255,0)).convert("RGBA")
+    #clrL3 = ImageOps.colorize(ImageOps.grayscale(clrCnt3), (128,128,128), (terrainR,terrainG,terrainB)).convert("RGBA")
+    #colorFinal.paste(clrL1, (0,0), mask=clrL1)
+    #colorFinal.paste(clrL2, (0,0), mask=clrL2)
+    #colorFinal.paste(clrL3, (0,0), mask=clrL3)
     heightColor = ImageEnhance.Contrast(ImageEnhance.Brightness(finalHeight).enhance(0.5)).enhance(2)
-
-    colorMap = ImageOps.colorize(ImageOps.grayscale(heightColor), (25,25,25), (terrainR,terrainG,terrainB))
+    colorMap = ImageOps.colorize(ImageOps.grayscale(heightColor), ((random.randint(0,32)),(random.randint(0,32)),(random.randint(0,32))), (terrainR,terrainG,terrainB))
 
     if ocean == True:
         r,g,b,a = ocMapOffs2.split()
         ocMapInv = ImageOps.invert(ocMapOffs2.convert("RGB"))
-        ocMapClr = ImageOps.colorize(ImageOps.grayscale(ocMapInv), (25,25,25), ((random.randint(50,100)),(random.randint(50,100)),(random.randint(50,100))))
+        ocMapClr = ImageOps.colorize(ImageOps.grayscale(ocMapInv), (25,25,25), ((random.randint(10,50)),(random.randint(10,50)),(random.randint(10,50))))
         ocMapClr.putalpha(a)
         #colorMap.paste(ocMapClr, (0,0), mask=ocMapClr)
         colorMap.putalpha(a)
