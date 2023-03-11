@@ -5,7 +5,7 @@ Infinite Discoveries aims to create fully functional star systems with as little
 Simply put the folder named "ProcedualPlanets" in the zip file provided in the releases page into your KSP GameData folder.
 
 ## How to use:
-1. Make sure you have ImageMagick installed, as this mod requires it to convert PNG textures to DDS.
+1. Make sure you have ImageMagick (https://imagemagick.org/index.php) installed, as this mod requires it to convert PNG textures to DDS.
 2. Run the shortcut inside the "ProcedualPlanets" folder, if windows complains about it, just let it run.
 3. Input the numbers it asks you to input (the amount of stars to generate, max amount of planets and moons...)
 3. Let it run!
