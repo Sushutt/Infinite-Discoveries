@@ -22,7 +22,7 @@ Simply put the folder named "ProcedualPlanets" in the zip file provided in the r
 
 ### Then install the following libraries via pip:
 1. pip install pillow (https://pillow.readthedocs.io/en/stable/installation.html)
-2. pip install wand (unsure if this is actually necessary)
+2. pip install wand (https://imagemagick.org/index.php)
 3. pip install colour
 
 ### Install the actual program:
