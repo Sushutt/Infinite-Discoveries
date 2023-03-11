@@ -9,7 +9,8 @@ Simply put the folder named "ProcedualPlanets" in the zip file provided in the r
 2. Run the shortcut inside the "ProcedualPlanets" folder, if windows complains about it, just let it run.
 3. Input the numbers it asks you to input (the amount of stars to generate, max amount of planets and moons...)
 3. Let it run!
-4. Once you're done, start KSP! If you installed it correctly, it should work perfectly fine!
+4. Once the planets generate, you HAVE TO delete the "GenerateSystem" folder due to the game freaking out over DLLs inside it.
+5. Once you're done, start KSP! If you installed it correctly, it should work perfectly fine!
 
 
 ## Okay, so you don't trust the exe. You want to use this with more control... How to install this THE HARD WAY!
