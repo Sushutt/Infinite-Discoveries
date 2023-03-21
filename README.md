@@ -4,6 +4,7 @@ Infinite Discoveries aims to create fully functional star systems with as little
 ## How to install:
 Simply put the folder named "InfiniteDiscoveries" in the zip file provided in the releases page into your KSP GameData folder.
 You can also enable galaxy mode by moving the "Infinite_GalaxyMode" folder to GameData!
+Galaxy mode doesn't require you to regenerate everything!!
 
 ## How to use:
 1. Make sure you have ImageMagick (https://imagemagick.org/index.php) installed, as this mod requires it to convert PNG textures to DDS.
