@@ -25,6 +25,8 @@ You can also enable galaxy mode by moving the "Infinite_GalaxyMode" folder to Ga
 1. pip install pillow (https://pillow.readthedocs.io/en/stable/installation.html)
 2. pip install wand (https://imagemagick.org/index.php)
 3. pip install colour
+4. pip install noise
+5. pip install scipy
 
 ### Install the actual program:
 1. Find the main branch on github, and click the green "Code" button, then click "Download ZIP."
