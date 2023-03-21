@@ -1174,8 +1174,7 @@ def GeneratePlanetMaps(vacuum, terrainR, terrainG, terrainB, planetName, ocean, 
                 # Set the pixel value in the displaced image
                 img_pixels[x, y] = pixel
         print("Finished generating icecaps!")
-        icecap_drk = ImageEnhance.Brightness(icecap_img).enhance(0.6)
-        imageContr.paste(icecap_drk, (0,0), mask=icecap_drk)
+        imageContr.paste(icecap_img, (0,0), mask=icecap_img)
 
     print("Finished overlaying surface features!")
 
@@ -1832,7 +1831,7 @@ def testNum(Numer):
 print("---------------------------------------------------------------")
 print("Infinite-Discoveries Version 0.9.6 (alpha!)")
 print("---------------------------------------------------------------")
-print("WARNING: Generating a large amount of stars will take longer to... generate! The more stars you generate, the more it has to generate. You can find a settings folder in the mod directory if you want to adjust some parameters.")
+print("WARNING: Generating a large amount of stars will take longer to... generate! The more stars you generate, the more it has to generate. You can find a settings file in the mod directory if you want to adjust some parameters.")
 print("---------------------------------------------------------------")
 
 StarAmount = int(input("Amount of stars to generate: "))
