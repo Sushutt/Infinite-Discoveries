@@ -2,8 +2,10 @@
 
 convertTexturesToDDS = True # Will remove the requirement for ImageMagick and reduce generator time if false. Will also increase KSP loading time so setting to false is not recommended.
 
-minPlanets = 3 # Minimum number of planets per star.
+minPlanets = 0 # Minimum number of planets per star.
 minMoons = 0 # Minimum number of moons per planet.
+
+fantasyNames = True # Generate a fantasy name for bodies. Will not affect internal names!
 
 # Generator settings. These settings will greatly affect the generator speed.
 # These values MUST be whole numbers!
@@ -12,10 +14,10 @@ minStarSize = 66160000
 maxStarSize = 784800000
 minStarDistance = 10000000000000
 maxStarDistance = 50000000000000
-noiseOctaves = 10
+noiseOctaves = 5 # This one greatly affects generator time, higher octaves = more noise detail but also longer time to generate.
 noiseFrequencyMin = 10
 noiseFrequencyMax = 20
-noiseLacunarity = 2.0 # This one doesn't have to be a whole number lol.
+noiseLacunarity = 2.6 # This one doesn't have to be a whole number lol.
 icecapDisplacement = 25 # Not recommended to change this value. Changes the amount of pixels that the icecaps are displaced relative to the heightmap.
 
 # Color settings, in the off chance that you want every planet to be a certain color.
