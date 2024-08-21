@@ -15,6 +15,7 @@ try:
     import time
     import math
     import numpy as np
+    import scipy
     from scipy.signal import convolve2d
     import noise
     import sys
@@ -2319,7 +2320,7 @@ try:
         global totalPlanetsGenerated
         totalPlanetsGenerated = totalPlanetsGenerated + 1
         if planetsGenerated > 1:
-            moonAmount = random.randint(Settings.minMoons,AmountOfMoonsToGenerate)
+            moonAmount = round(np.clip(scipy.stats.gamma.rvs(*Settings.moonDistributionArgs), Settings.minMoons, AmountOfMoonsToGenerate))
         else:
             moonAmount = 0
         planetName = starN + "-" + alphabet[planetsGenerated]
@@ -2694,12 +2695,11 @@ try:
         return starColor, starName, dispName
 
     def generateBarycenter(AmountOfPlanetsToGenerate):
-        planetsNum = random.randint(Settings.minPlanets,AmountOfPlanetsToGenerate)
+        planetsNum = math.floor(np.clip(scipy.stats.gamma.rvs(*Settings.planetDistributionArgs), Settings.minMoons, AmountOfPlanetsToGenerate))
         global planetsGenerated
         planetsGenerated = 0
         systemName = str(alphabet[random.randint(0,len(alphabet)-1)]) + str(alphabet[random.randint(0,len(alphabet)-1)]) + "-" + str(random.randint(0,99999))
 
-        planetsNum = random.randint(Settings.minPlanets,AmountOfPlanetsToGenerate)
         print(systemName)
         print("Number Of Planets For " + systemName + ": " + str(planetsNum))
         min = Settings.minStarSize
