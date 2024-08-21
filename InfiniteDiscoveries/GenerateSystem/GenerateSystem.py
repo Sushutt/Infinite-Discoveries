@@ -2320,7 +2320,7 @@ try:
         global totalPlanetsGenerated
         totalPlanetsGenerated = totalPlanetsGenerated + 1
         if planetsGenerated > 1:
-            moonAmount = math.floor(np.clip(scipy.stats.gamma.rvs(*Settings.moonDistributionArgs), Settings.minMoons, AmountOfMoonsToGenerate))
+            moonAmount = round(np.clip(scipy.stats.gamma.rvs(*Settings.moonDistributionArgs), Settings.minMoons, AmountOfMoonsToGenerate))
         else:
             moonAmount = 0
         planetName = starN + "-" + alphabet[planetsGenerated]
