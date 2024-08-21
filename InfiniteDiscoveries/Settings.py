@@ -5,6 +5,9 @@ convertTexturesToDDS = True # Will remove the requirement for ImageMagick and re
 minPlanets = 0 # Minimum number of planets per star.
 minMoons = 0 # Minimum number of moons per planet.
 
+planetDistributionArgs: tuple[float] = (2.0, 0.0, 1.0)
+moonDistributionArgs: tuple[float] = (6.0, -0.5, 0.5)
+
 fantasyNames = True # Generate a fantasy name for bodies. Will not affect internal names!
 
 # Generator settings. These settings will greatly affect the generator speed.
