@@ -2,5 +2,5 @@
 
 kerbolMass = 6.7146251e+19
 
-kerbolLifetime = 10000000000.0
-kerbolAge      = 5000000000.0
+kerbolLifetime = 10000000000.0 # 10 billion years.
+kerbolAge      = 5000000000.0 # 5 billion years.
