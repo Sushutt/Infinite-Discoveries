@@ -1,0 +1,15 @@
+// Infinite Discoveries ScaledVersion Node
+        ScaledVersion
+        {{
+            type = {scaledType} // dunno what this does
+            Material
+            {{
+                texture = InfiniteDiscoveries/Textures/PluginData/{internalName}_CLR.dds
+                normals = InfiniteDiscoveries/Textures/PluginData/{internalName}_NRM.dds
+                color = 1,1,1,1
+                specColor = 0, 0, 0, 1
+                shininess = 0.3
+
+                {AtmoGradient}
+            }}
+        }}

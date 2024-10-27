@@ -1,0 +1,41 @@
+// Infinite Discoveries Atmosphere
+        Atmosphere
+        {{
+            enabled = true
+            oxygen = {hasOxygen}
+            ambientColor = RGBA({waveR_02}, {waveG_02}, {waveB_02}, 100)
+            altitude = {atmoHeight_1}
+            pressureCurveIsNormalized = false
+            staticPressureASL = {atmoPress_1}
+            temperatureSeaLevel = {temp1}
+            pressureCurve
+            {{
+                key = 0 {atmoPress_1} 0 {curve1}
+                key = {atmoHeight_05} {atmoPress_005} {curve2} {curve3}
+                key = {atmoHeight_1} 0 0 0
+            }}
+            temperatureCurve
+            {{
+                key = 0 {temp1} 0 0
+                key = {atmoHeight_025} {temp2} 0 0
+                key = {atmoHeight_075} {temp3} 0 0
+                key = {atmoHeight_1} {temp4} 0 0
+            }}
+            temperatureSunMultCurve
+            {{
+                key = 0 0 0 0
+                key = 35000 0 0 0
+            }}
+            AtmosphereFromGround
+            {{                
+                DEBUG_alwaysUpdateAll = False
+                doScale = False
+                waveLength = RGBA({waveR}, {waveG}, {waveB}, 100)
+                samples = 4
+		 		innerRadius = 595626.9
+                outerRadius = 635865.6
+                innerRadiusMult = 0.9563388
+                outerRadiusMult = 1.045001
+                transformScale = 1.095,1.095,1.095
+            }}
+        }}

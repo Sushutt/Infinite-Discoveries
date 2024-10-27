@@ -1,0 +1,14 @@
+// Infinite Discoveries Orbit Node
+        Orbit
+        {{
+            referenceBody = {parent}
+            color = RGBA({orbitR},{orbitG},{orbitB},255)
+            semiMajorAxis = {SMA}
+            inclination = {inclination}
+            eccentricity = {eccentricity}
+            longitudeOfAscendingNode = 0
+            argumentOfPeriapsis = 0
+            meanAnomalyAtEpochD = {meanAnomalyAtEpochD}
+            epoch = 0
+            iconTexture = {iconFilepath}
+        }}

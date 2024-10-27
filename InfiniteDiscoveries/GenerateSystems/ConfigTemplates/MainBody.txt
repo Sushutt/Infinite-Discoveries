@@ -1,0 +1,22 @@
+@Kopernicus:AFTER[Kopernicus]
+{{
+    Body
+    {{
+        name = {internalName}
+        cacheFile = InfiniteDiscoveries/Cache/{internalName}.bin
+        Tag = {tag}
+        Template
+        {{
+            name = {templateName}
+            removeAllPQSMods = true
+        }}
+        {Properties}
+        {Orbit}
+        {ScaledVersion}
+        {Rings}
+        {Atmosphere}
+        {Ocean}
+        {PQS}
+        {HazardousBody}
+    }}
+}}

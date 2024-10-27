@@ -1,0 +1,10 @@
+// atmo guy yeah
+                rimPower = 1
+		        rimBlend = 0.5
+                Gradient
+                {{
+                    0.0 = RGBA({atmoR}, {atmoG}, {atmoB}, 100)
+                    0.3 = RGBA({sctrR}, {sctrG}, {sctrB}, 100)
+                    0.6 = RGBA(0, 0, 0, 0)
+                    1 = RGBA(0, 0, 0, 0)
+                }}

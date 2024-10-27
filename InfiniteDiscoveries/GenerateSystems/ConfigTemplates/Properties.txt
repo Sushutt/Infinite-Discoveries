@@ -1,0 +1,118 @@
+// Infinite Discoveries Properties Node
+        Properties
+        {{
+            displayName = {displayName}^N
+            radius = {radius}
+            geeASL = {geeASL}
+            rotationPeriod = {rotationPeriod}
+            initialRotation = 0
+            tidallyLocked = {tidallyLocked}
+            description = {description}
+
+            {scienceValues}
+
+            biomeMap = {biomeMap_PATH}
+
+            // These all stay constant.
+            Biomes
+            {{
+                Biome
+                {{
+                    name = Lowlands
+                    displayName = Lowlands
+                    value = 1.0
+                    color = RGB(0,0,0)
+                }}
+                Biome
+                {{
+                    name = Midlands
+                    displayName = Midlands
+                    value = 1.0
+                    color = RGB(64,64,64)
+                }}
+                Biome
+                {{
+                    name = Highlands
+                    displayName = Lowlands
+                    value = 1.0
+                    color = RGB(128,128,128)
+                }}
+                Biome
+                {{
+                    name = Peaks
+                    displayName = Peaks
+                    value = 1.0
+                    color = RGB(192,192,192)
+                }}
+                Biome
+                {{
+                    name = Icecaps
+                    displayName = Icecaps
+                    value = 1.2
+                    color = RGB(150,200,255)
+                }}
+                Biome
+                {{
+                    name = Oceans
+                    displayName = Oceans
+                    value = 1.5
+                    color = RGB(0, 0, 50)
+                }}
+                Biome
+                {{
+                    name = Mountains
+                    displayName = Mountains
+                    value = 1.0
+                    color = RGB(255,255,0)
+                }}
+                Biome
+                {{
+                    name = Volcanoes
+                    displayName = Volcanoes
+                    value = 1.5
+                    color = RGB(255,0,0)
+                }}
+                Biome
+                {{
+                    name = Lava
+                    displayName = Lava
+                    value = 2.0
+                    color = RGB(255,98,0)
+                }}
+                Biome
+                {{
+                    name = Canyons
+                    displayName = Canyons
+                    value = 1.0
+                    color = RGB(255,0,255)
+                }}
+                Biome
+                {{
+                    name = Crater_Rays
+                    displayName = Crater Rays
+                    value = 1.0
+                    color = RGB(150, 255, 150)
+                }}
+                Biome
+                {{
+                    name = Craters
+                    displayName = Craters
+                    value = 1.0
+                    color = RGB(0, 255, 150)
+                }}
+                Biome
+                {{
+                    name = AnomalousStructure
+                    displayName = Anomalous Structure
+                    value = 1.0
+                    color = RGB(119, 198, 247)
+                }}
+                Biome
+                {{
+                    name = CrashedShip
+                    displayName = Crashed Ship
+                    value = 1.0
+                    color = RGB(82, 96, 105)
+                }}
+            }}
+        }}
