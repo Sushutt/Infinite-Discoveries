@@ -1,0 +1,1 @@
+If this folder seems so empty, it's because most of the changes are handled in the main mod.
