@@ -56,3 +56,4 @@ General guidelines / things to note:
 
 1. Do not make changes to files in the "UNUSED" folder.
 2. The "GenerateSystem" file is obsolete. All functionality is split in to its own file and/or class.
+3. "Infinite_DeflateStars" and "Infinite_GalaxyMode" are both obsolete and are handled in the main Infinite Discoveries folder.
