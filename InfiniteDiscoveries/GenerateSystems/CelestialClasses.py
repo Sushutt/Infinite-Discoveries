@@ -38,12 +38,14 @@ class orbitParams:
 class star:
     def __init__(self,
                  Parent: str,
+                 Children: list,
                  Mass: float,
                  Age: float,
                  Orbit: orbitParams,
                  ) -> None:
         
         self.Parent = Parent # can either be kerbol (center of the universe) or a barycenter or literally anything else idc lol
+        self.Children = Children # list of things oribitng this planet i guess idk
         self.Mass = Mass
         self.Age = Age
         self.Orbit = Orbit
@@ -53,6 +55,7 @@ class star:
         self.Luminosity = 1*(self.Mass/Constants.kerbolMass)**3.5 #(self.Mass / Constants.kerbolMass)**2
         self.Lifetime = 10**10*(Constants.kerbolMass/self.Mass)**2.5 # SUPER big approximation but this is used to determine the star type AFTER creating its properties
         
+        # Checks what type of star this is by its mass and such (may not use due to finnicky behaviour!!)
         if self.Age > self.Lifetime + self.Lifetime/5:
             if (self.Mass/Constants.kerbolMass) < 8:
                 # white dwarf
@@ -99,6 +102,7 @@ class barycenter:
 class nonStarCelestialBody:
     def __init__(self,
                 Parent: str, # Anything lol
+                Children: list,
                 Name: str,
                 DisplayName: str,
                 Description: str,
@@ -131,6 +135,7 @@ class nonStarCelestialBody:
         
         # Identification IG
         self.Parent = Parent
+        self.Children = Children # list of things oribitng this planet i guess idk
         self.Name = Name
         self.DisplayName = DisplayName
         self.Description = Description
